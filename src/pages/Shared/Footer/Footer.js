@@ -8,6 +8,7 @@ const Footer = () => {
         className="footer p-20 flex justify-between"
         style={{
           background: `url(${footerBg})`,
+          backgroundSize: "cover",
         }}
       >
         <div>
