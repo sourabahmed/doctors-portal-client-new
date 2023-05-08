@@ -4,16 +4,38 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        doctorPortalTheme: {
+        light: {
+          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
           primary: "#0FCFEC",
           secondary: "#19D3AE",
           accent: "#3A4256",
-          neutral: "#3d4451",
-          "base-100": "#ffffff",
+          backgroundColor: "white",
+        },
+      },
+      {
+        dark: {
+          ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
+          primary: "#0FCFEC",
+          secondary: "#19D3AE",
+          accent: "#3A4256",
+          backgroundColor: "#323848",
         },
       },
     ],
   },
+  // {
+  //   themes: [
+  //     {
+  //       doctorPortalTheme: {
+  //         primary: "#0FCFEC",
+  //         secondary: "#19D3AE",
+  //         accent: "#3A4256",
+  //         neutral: "#3d4451",
+  //         "base-100": "#ffffff",
+  //       },
+  //     },
+  //   ],
+  // },
   theme: {
     extend: {},
   },
