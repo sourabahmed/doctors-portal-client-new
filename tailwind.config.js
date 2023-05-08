@@ -9,7 +9,6 @@ module.exports = {
           primary: "#0FCFEC",
           secondary: "#19D3AE",
           accent: "#3A4256",
-          backgroundColor: "white",
         },
       },
       {
@@ -18,7 +17,6 @@ module.exports = {
           primary: "#0FCFEC",
           secondary: "#19D3AE",
           accent: "#3A4256",
-          backgroundColor: "#323848",
         },
       },
     ],

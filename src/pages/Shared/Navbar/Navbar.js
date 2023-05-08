@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useScroll } from "../../../hooks/useScroll";
 
 const Navbar = () => {
   // use theme from local storage if available or set light theme
@@ -44,6 +45,7 @@ const Navbar = () => {
       <li>
         <input
           type="checkbox"
+          // className="toggle toggle-warning"
           onChange={handleToggle}
           // show toggle image based on localstorage theme
           checked={theme === "light" ? false : true}

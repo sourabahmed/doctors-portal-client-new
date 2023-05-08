@@ -33,8 +33,10 @@ const Services = () => {
   return (
     <div>
       <div className="text-center">
-        <h4 className="text-secondary">OUR SERVICES</h4>
-        <h3>Service We Provide</h3>
+        <h4 className="text-2xl mt-16 text-secondary font-bold">
+          OUR SERVICES
+        </h4>
+        <h3 className="text-4xl mt-5">Service We Provide</h3>
       </div>
       <div className="mx-6 my-16 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {serviceData.map((service) => (
