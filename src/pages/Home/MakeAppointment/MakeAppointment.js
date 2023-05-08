@@ -1,5 +1,5 @@
 import React from "react";
-import doctorImage from "../../../assets/images/doctor.png";
+import doctorImage from "../../../assets/images/doctor-small.png";
 import appointmentImage from "../../../assets/images/appointment.png";
 import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
@@ -10,7 +10,7 @@ const MakeAppointment = () => {
       style={{ background: `url(${appointmentImage})` }}
     >
       <div className="hero">
-        <div className="hero-content flex-col lg:flex-row">
+        <div className="hero-content p-0 flex-col lg:flex-row">
           <img
             src={doctorImage}
             alt="doctor"
