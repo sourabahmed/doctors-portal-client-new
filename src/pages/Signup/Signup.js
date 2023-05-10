@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
   const {
@@ -9,8 +10,20 @@ const Signup = () => {
     handleSubmit,
   } = useForm();
 
+  const { createUser } = useContext(AuthContext);
+
   const handleSignup = (data) => {
     console.log(data);
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
   return (
     <div className="h-[600px] flex justify-center items-center">
@@ -23,7 +36,7 @@ const Signup = () => {
             </label>
             <input
               {...register("name", { required: "Full name is required" })}
-              type="email"
+              type="text"
               className="input input-bordered w-full max-w-xs"
             />
             {errors.name && (
@@ -59,8 +72,7 @@ const Signup = () => {
                   message: "Password must be 8 Character",
                 },
                 pattern: {
-                  value:
-                    /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
+                  value: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])/,
                   message: "Password must be strong",
                 },
               })}
