@@ -61,18 +61,21 @@ const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
               type="text"
               placeholder="Full Name"
               className="input input-bordered w-full "
+              required
             />
             <input
               name="email"
               type="email"
               placeholder="Email"
               className="input input-bordered w-full"
+              required
             />
             <input
               name="phone"
               type="text"
               placeholder="Phone Number"
               className="input input-bordered w-full "
+              required
             />
             <input
               type="submit"
