@@ -1,22 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-  const handleLogin = (data) => {
+  const handleSignup = (data) => {
     console.log(data);
   };
   return (
     <div className="h-[600px] flex justify-center items-center">
       <div className="w-96 shadow-2xl p-11 rounded-2xl">
-        <h2 className="text-xl text-center">Login</h2>
-        <form onSubmit={handleSubmit(handleLogin)}>
+        <h2 className="text-xl text-center">Signup</h2>
+        <form onSubmit={handleSubmit(handleSignup)}>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text">Full Name</span>
+            </label>
+            <input
+              {...register("name", { required: "Full name is required" })}
+              type="email"
+              className="input input-bordered w-full max-w-xs"
+            />
+            {errors.name && (
+              <p role="alert" className="text-red-600">
+                {errors.name?.message}
+              </p>
+            )}
+          </div>
           <div className="form-control w-full max-w-xs">
             <label className="label">
               <span className="label-text">Email</span>
@@ -43,6 +58,11 @@ const Login = () => {
                   value: 8,
                   message: "Password must be 8 Character",
                 },
+                pattern: {
+                  value:
+                    /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/,
+                  message: "Password must be strong",
+                },
               })}
               type="password"
               className="input input-bordered w-full max-w-xs"
@@ -60,14 +80,14 @@ const Login = () => {
             <input
               type="submit"
               className="btn btn-accent text-white"
-              value="Login "
+              value="Signup "
             />
           </div>
         </form>
         <p className="text-sm text-center my-3">
-          New to Doctors Portal?{" "}
-          <Link to="/signup" className="text-secondary">
-            Create New Account
+          Already have an account?{" "}
+          <Link to="/login" className="text-secondary">
+            Please Login
           </Link>
         </p>
         <div className="divider">OR</div>
@@ -79,4 +99,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
