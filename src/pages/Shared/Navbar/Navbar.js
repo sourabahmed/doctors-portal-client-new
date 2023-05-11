@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useScroll } from "../../../hooks/useScroll";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
   // use theme from local storage if available or set light theme
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -40,7 +42,11 @@ const Navbar = () => {
         <Link to="/reviews">Reviews</Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        {user?.uid ? (
+          <Link onClick={logOut}>Logout</Link>
+        ) : (
+          <Link to="/login">Login</Link>
+        )}
       </li>
       <li>
         <input

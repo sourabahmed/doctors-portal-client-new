@@ -13,7 +13,7 @@ const Signup = () => {
   const { createUser } = useContext(AuthContext);
 
   const handleSignup = (data) => {
-    console.log(data);
+    // console.log(data);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;

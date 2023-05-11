@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
   const {
@@ -8,8 +9,21 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { signIn } = useContext(AuthContext);
+  const [loginError, setLoginEroor] = useState("");
 
   const handleLogin = (data) => {
+    setLoginEroor("");
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoginEroor(error.message);
+      });
+
     console.log(data);
   };
   return (
@@ -62,6 +76,9 @@ const Login = () => {
               className="btn btn-accent text-white"
               value="Login "
             />
+            {loginError && (
+              <p className="text-red-600 text-center">{loginError}</p>
+            )}
           </div>
         </form>
         <p className="text-sm text-center my-3">
