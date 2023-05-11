@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Login = () => {
   const {
@@ -11,6 +12,29 @@ const Login = () => {
   } = useForm();
   const { signIn } = useContext(AuthContext);
   const [loginError, setLoginEroor] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  const { signinWithGoogle } = useContext(AuthContext);
+
+  const handleSigninWithGoogle = () => {
+    signinWithGoogle()
+      .then((result) => {
+        navigate(from, { replace: true });
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        console.log(user.displayName);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleLogin = (data) => {
     setLoginEroor("");
@@ -18,6 +42,7 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.log(error.message);
@@ -88,9 +113,12 @@ const Login = () => {
           </Link>
         </p>
         <div className="divider">OR</div>
-        <div className="btn btn-outline w-full max-w-xs">
+        <button
+          onClick={handleSigninWithGoogle}
+          className="btn btn-outline w-full max-w-xs"
+        >
           CONTINUE WITH GOOGLE
-        </div>
+        </button>
       </div>
     </div>
   );
