@@ -10,6 +10,17 @@ const Navbar = () => {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
+  //handle log out
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   // update state on toggle
   const handleToggle = (e) => {
     if (e.target.checked) {
@@ -43,9 +54,19 @@ const Navbar = () => {
       </li>
       <li>
         {user?.uid ? (
-          <Link onClick={logOut}>Logout</Link>
+          <>
+            <Link to="/dashboard">dashboard</Link>
+            <Link
+              onClick={handleLogOut}
+              className="btn btn-accent text-white me-4"
+            >
+              Logout
+            </Link>
+          </>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link to="/login" className="btn btn-accent text-white me-4">
+            Login
+          </Link>
         )}
       </li>
       <li>

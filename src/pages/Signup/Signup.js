@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
@@ -9,20 +9,33 @@ const Signup = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-
-  const { createUser } = useContext(AuthContext);
+  const [signupError, setSignupError] = useState("");
+  const { createUser, updateUser } = useContext(AuthContext);
 
   const handleSignup = (data) => {
     // console.log(data);
+    signupError("");
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        const userInfo = {
+          displayName: data.name,
+        };
+        updateUser(userInfo)
+          .then(() => {
+            // Profile updated!
+            // ...
+          })
+          .catch((error) => {
+            // An error occurred
+            console.log(error);
+            setSignupError(error.message);
+          });
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(error);
+        setSignupError(error.message);
       });
   };
   return (
@@ -94,6 +107,9 @@ const Signup = () => {
               className="btn btn-accent text-white"
               value="Signup "
             />
+            {signupError && (
+              <p className="text-red-600 text-center">{signupError}</p>
+            )}
           </div>
         </form>
         <p className="text-sm text-center my-3">
