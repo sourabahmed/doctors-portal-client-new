@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useScroll } from "../../../hooks/useScroll";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { user, logOut } = useContext(AuthContext);
   // use theme from local storage if available or set light theme
   const [theme, setTheme] = useState(
@@ -15,6 +16,7 @@ const Navbar = () => {
     logOut()
       .then(() => {
         // Sign-out successful.
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.message);
